@@ -111,15 +111,3 @@ class PDist(object):
             if choice <= 0:
                 return key
 
-
-def test_list_of_tuple_form():
-    assert PDist([('a', 0.9), ('b', 0.1)])
-
-def test_dict_form():
-    assert PDist({'cat': 0.98, 'mouse': 0.02})
-
-def test_sample_form():
-    a =  PDist([('a', 0.9), ('b', 0.1)])
-    b =  PDist([('a', 9), ('b', 1)])
-    assert a.distribution == b.distribution
-
