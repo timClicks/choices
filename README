@@ -1,0 +1,11 @@
+choices : for making random decisions
+
+choices allows you to simulate decision making from a
+probability distribution.
+
+    >>> from choices import PDist
+    >>> mood = PDist({'happy': 0.3, 'sad': 0.1, 'neutral': 0.6})
+    >>> mood()
+    'happy'
+    >>> mood()
+    'neutral'
