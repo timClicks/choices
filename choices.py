@@ -77,6 +77,9 @@ class PDist(object):
         self.distribution = self.__normalise_dist(dist)
         self._cumulative_distribution = self.__gen_cumul_dist()
         self._ranfun = ranfun
+    
+    def __contains__(self, item):
+        return item in [key for key, p in self.distribution]
 
     def __normalise_dist(self, dist):
         s = sum(p for key,p in dist)
