@@ -1,7 +1,9 @@
 choices : for making random decisions
 
 choices allows you to simulate decision making from a
-probability distribution.
+probability distribution. more formally, it provides
+a declarative mechanism for introducing stochastic
+behaviour to your code.
 
     >>> from choices import PDist
     >>> mood = PDist({'happy': 0.3, 'sad': 0.1, 'neutral': 0.6})
