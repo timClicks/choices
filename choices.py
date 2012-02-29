@@ -92,6 +92,7 @@ class PDist(object):
 
     def __gen_cumul_dist(self):
         dist = self.distribution[:]
+        dist.reverse()
         so_far = 0
         for i, (key, p) in enumerate(dist):
             dist[i] = (key, p + so_far)
@@ -110,7 +111,6 @@ class PDist(object):
     def __call__(self):
         choice = self._ranfun()
         for key, val in self._cumulative_distribution:
-            choice = choice - val
-            if choice <= 0:
+            if choice <= val:
                 return key
 
