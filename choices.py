@@ -13,9 +13,9 @@
 #  limitations under the License.
 
 """
-The Choice is designed to make it easy to make it easy to make 
-things happen in a probablistic manner. Provide keys with an 
-associated probability attached, and the
+choices.Choice is designed to make it easy to make it easy to 
+make things happen in a probablistic manner. Provide keys with 
+an associated probability attached, and the
 
     >>> mood = Choice({'happy': 0.3, 'neutral': 0.6, 'sad': 0.1})
     >>> mood()
