@@ -13,11 +13,11 @@
 #  limitations under the License.
 
 """
-The PDist is designed to make it easy to make it easy to make 
+The Choice is designed to make it easy to make it easy to make 
 things happen in a probablistic manner. Provide keys with an 
 associated probability attached, and the
 
-    >>> mood = PDist({'happy': 0.3, 'neutral': 0.6, 'sad': 0.1})
+    >>> mood = Choice({'happy': 0.3, 'neutral': 0.6, 'sad': 0.1})
     >>> mood()
     'happy'
     >>> mood()
@@ -38,7 +38,7 @@ functions to be used as keys:
   ...    return ':/'
   >>> def happy(news):
   ...    return ':)'
-  >>> react = PDist([(grumpy, 0.7), (happy, 0.3)])
+  >>> react = Choice([(grumpy, 0.7), (happy, 0.3)])
   >>> reaction = react()
   >>> reaction("We're getting married!")
   ':/'
@@ -48,23 +48,23 @@ and wish to calculate a probablilty distribution, you can provide
 those too:
 
    >>> spotted = {'geese': 0, 'ducks': 12, 'sparrows': 4, 'other': 39}
-   >>> bird_pdist = PDist(spotted)
-   >>> bird_pdist.distribution
+   >>> birds = Choice(spotted)
+   >>> birds.distribution
    [('geese', 0.0), ('sparrows', 0.07272727272727272), ('ducks', 0.21818181818181817), ('other', 0.7090909090909091)]
 
 Retrieving the probability of a particular key is supported. However,
 the search strategy is very inefficient and probably shouldn't be used
 outside of the interactive Python shell.
 
-    >>> bird_pdist['geese']
+    >>> birds['geese']
     0.0
 """
 
 import random
 
-class PDist(object):
+class Choice(object):
     """
-    >>> mood = PDist([('happy', 0.3), ('neutral', 0.6), ('sad', 0.1)])
+    >>> mood = Choice([('happy', 0.3), ('neutral', 0.6), ('sad', 0.1)])
     >>> mood()
     'happy'
     >>> mood()
@@ -106,7 +106,7 @@ class PDist(object):
         raise KeyError
 
     def __repr__(self):
-        return u'PDist({0})'.format(self.nominal_distribution)
+        return u'Choice({0})'.format(self.nominal_distribution)
 
     def __call__(self):
         choice = self._ranfun()
