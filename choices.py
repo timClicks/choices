@@ -13,9 +13,41 @@
 #  limitations under the License.
 
 """
-choices.Choice is designed to make it easy to make it easy to 
-make things happen in a probablistic manner. Provide keys with 
-an associated probability attached, and the
+choices is designed to make it easy to make it easy to 
+make things happen in a probabilistic manner. Its main
+API is the Choice class.
+
+When called, a Choice object will return one of its keys
+according to the proability it has been assigned.
+
+Here's an example:
+
+    >>> mood = Choice({'happy': 0.3, 'neutral': 0.6, 'sad': 0.1})
+    >>> mood()
+    'happy'
+    >>> mood()
+    'neutral'
+    >>> mood()
+    'neutral'
+
+
+Creating a Choice object
+========================
+
+There are three main ways for creating a Choice object:
+
+- a dict of keys and probabilities
+- a list of (key, probability) pairs
+- a list of (key, sample_count) pairs
+
+Each of those options is explained below.
+
+A dict of keys and probabilities
+--------------------------------
+
+Perhaps the simplest way to create a Choice is to
+provide the keys and associated probability wrapped
+up as a dict:
 
     >>> mood = Choice({'happy': 0.3, 'neutral': 0.6, 'sad': 0.1})
     >>> mood()
@@ -23,16 +55,18 @@ an associated probability attached, and the
     >>> mood()
     'neutral'
 
-You can retrieve the distribution of how those values are applied
-by accessing the distribution attribute:
-
-    >>> mood.distribution
-    [('happy', 0.3), ('neutral', 0.6), ('sad', 0.1)]
+A list of (key, probability) pairs
+----------------------------------
 
 As well as a dict assigning a probability to each key, you can
-send in a list of lists/tuples. This allows for for non-hashable
-types to be used. This means that you provide objects such as 
-functions to be used as keys:
+send in a list of (key,value) pairs as lists or tuples. This 
+allows for lots of flexibility, including non-hashable
+types to be used. This means that you can provide objects such 
+as functions to be used as keys.
+
+Let's say we wanted to create an NPC for a game and wanted
+some scripted responses. Why not encode moods as functions
+and then pass them togetheer as a Choice. 
 
   >>> def grumpy(news):
   ...    return ':/'
@@ -43,14 +77,44 @@ functions to be used as keys:
   >>> reaction("We're getting married!")
   ':/'
 
+a list of (key, sample_count) pairs
+-----------------------------------
+
 You are not restricted to adding p to 1. If you only have samples,
 and wish to calculate a probablilty distribution, you can provide 
 those too:
 
-   >>> spotted = {'geese': 0, 'ducks': 12, 'sparrows': 4, 'other': 39}
-   >>> birds = Choice(spotted)
+   >>> birds_spotted = {'geese': 0, 'ducks': 12, 'sparrows': 4, 'other': 39}
+   >>> birds = Choice(birds_spotted)
    >>> birds.distribution
    [('geese', 0.0), ('sparrows', 0.07272727272727272), ('ducks', 0.21818181818181817), ('other', 0.7090909090909091)]
+
+
+Usage
+=====
+
+Making decisions
+----------------
+
+To return a new value, simply call the Choice object. 
+
+
+    >>> where_to_go = Choice({"Paris": 0.4, "London": 0.4, "Copenhagen": 0.1, "Barcelona": 0.1 })
+    >>> where_to_go()
+    'Copenhagen'
+
+
+Finding probabilities
+---------------------
+
+You can retrieve the distribution of how those values are applied
+by accessing the distribution attribute:
+
+    >>> mood.distribution
+    [('happy', 0.3), ('neutral', 0.6), ('sad', 0.1)]
+    
+    >>> where_to_go.distribution
+    [('Paris': 0.4), ('London', 0.4), ('Copenhagen', 0.1), ('Barcelona', 0.1)]
 
 Retrieving the probability of a particular key is supported. However,
 the search strategy is very inefficient and probably shouldn't be used
