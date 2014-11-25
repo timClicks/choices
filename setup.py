@@ -3,7 +3,7 @@ import choices
 from distutils.core import setup
 setup(
   name='choices',
-  version='0.1',
+  version='0.2',
   py_modules=['choices'],
   description="Making choices from a probability distribution",
   author="Tim McNamara",
