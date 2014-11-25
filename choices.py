@@ -116,9 +116,7 @@ by accessing the distribution attribute:
     >>> where_to_go.distribution
     [('Paris': 0.4), ('London', 0.4), ('Copenhagen', 0.1), ('Barcelona', 0.1)]
 
-Retrieving the probability of a particular key is supported. However,
-the search strategy is very inefficient and probably shouldn't be used
-outside of the interactive Python shell.
+Retrieving the probability of a particular key is supported:
 
     >>> birds['geese']
     0.0
@@ -143,7 +141,7 @@ class Choice(object):
         self._ranfun = ranfun
     
     def __contains__(self, item):
-        return item in [key for key, p in self.distribution]
+        return item in set(key for key, p in self.distribution)
 
     def __normalise_dist(self, dist):
         s = sum(p for key,p in dist)
